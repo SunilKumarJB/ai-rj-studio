@@ -1,4 +1,4 @@
-# AI Radio Jockey Studio | Powered by Gemini 3.1
+# AI Radio Jockey Studio | Powered by Gemini
 
 A stunning, premium web application built with Python FastAPI and Vanilla HTML5/CSS/JS (Glassmorphic aesthetics) that allows users to seamlessly broadcast custom Radio Jockey shows using state-of-the-art Google GenAI models.
 
