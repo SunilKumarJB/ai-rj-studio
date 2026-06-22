@@ -62,3 +62,15 @@ chmod +x deploy.sh
 # Run deployment
 ./deploy.sh
 ```
+---
+
+<div align="center">
+
+### Authors
+
+[**Sunil Kumar**](https://www.linkedin.com/in/sunilkumar88/)
+
+<sub>Built with Gemini, Veo, Imagen &amp; FFmpeg on Google Cloud.</sub>
+<sub> A Gemini use-case demonstration. Not an official Google product.</sub>
+
+</div>
