@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+google-genai
+google-cloud-aiplatform
+google-cloud-texttospeech>=2.31.0
+python-multipart
+
