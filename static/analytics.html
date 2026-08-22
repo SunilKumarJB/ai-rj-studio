@@ -8,35 +8,73 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Latin & Regional Fonts for rendering fallbacks correctly -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Latin Fonts & Radio LED Digital Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Orbitron:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Regional Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Ionicons for modern icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="/static/styles.css?v=1.8">
+    <link rel="stylesheet" href="/static/styles.css?v=9.2">
 </head>
 
-<body>
+<body class="theme-fm-radio aspect-16-9">
+    <!-- Ambient Broadcast Glow Backgrounds -->
     <div class="glow-ambient glow-ambient-1"></div>
     <div class="glow-ambient glow-ambient-2"></div>
+    <div class="glow-ambient glow-ambient-3"></div>
+    <div class="radio-scanlines"></div>
 
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-mic" style="color: #ec4899; filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.5));">
-                <ion-icon name="bar-chart-outline"></ion-icon>
+    <!-- Top Master FM Radio Header -->
+    <header class="app-header fm-master-header">
+        <div class="fm-top-banner">
+            <!-- Brand & Station Logo -->
+            <div class="header-brand">
+                <div class="logo-mic fm-pulse-logo" style="border-color: #ec4899; color: #ec4899; box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);">
+                    <ion-icon name="bar-chart-outline"></ion-icon>
+                    <span class="fm-wave-ring" style="border-color: #ec4899;"></span>
+                </div>
+                <div class="header-titles">
+                    <div class="brand-title-row">
+                        <h1>BROADCAST <span>ANALYTICS</span></h1>
+                        <div class="on-air-sign" style="background: rgba(168, 85, 247, 0.15); border-color: #a855f7; box-shadow: 0 0 18px rgba(168, 85, 247, 0.5);">
+                            <span class="on-air-led" style="background-color: #a855f7; box-shadow: 0 0 10px #a855f7;"></span>
+                            <span class="on-air-text" style="color: #f3e8ff;">AUDIT READY</span>
+                        </div>
+                    </div>
+                    <div class="header-sub-badges">
+                        <span class="badge fm-badge-pink">
+                            <ion-icon name="analytics-outline"></ion-icon> Acoustic Intelligence Engine
+                        </span>
+                        <span class="badge fm-badge-cyan">
+                            <ion-icon name="hardware-chip-outline"></ion-icon> Gemini 3.7 Multimodal Audio
+                        </span>
+                        <span class="badge fm-badge-gold">
+                            <ion-icon name="trophy-outline"></ion-icon> Executive KPI Metrics
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="header-titles">
-                <h1>AI Radio Studio</h1>
-                <span class="badge" style="background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.4); color: #f472b6;">Management Insights</span>
+
+            <!-- Header Telemetry Cluster -->
+            <div class="fm-telemetry-cluster">
+                <div class="fm-led-box">
+                    <span class="led-label">ANALYTICS MODE</span>
+                    <span class="led-digits led-pink" style="color: #ec4899; text-shadow: 0 0 12px rgba(236, 72, 153, 0.5);">MULTIMODAL</span>
+                </div>
+                <div class="fm-led-box">
+                    <span class="led-label">AI AUDIT STATUS</span>
+                    <span class="led-digits led-green">ONLINE</span>
+                </div>
             </div>
         </div>
-        <p class="tagline">Ingest and analyze completed show broadcasts to gain deep semantic breakdowns, playlist metrics, and executive business insights.</p>
-        <nav class="nav-tabs">
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs fm-nav-deck">
             <a href="/" class="nav-tab">
                 <ion-icon name="radio-outline"></ion-icon>
-                <span>Broadcast Studio</span>
+                <span>Live Broadcast Studio</span>
             </a>
             <a href="/static/analytics.html" class="nav-tab active">
                 <ion-icon name="analytics-outline"></ion-icon>
@@ -45,178 +83,274 @@
         </nav>
     </header>
 
-    <main class="studio-container">
-        <!-- Input Panel (Left) -->
-        <section class="panel producer-panel">
-            <div class="panel-header">
-                <ion-icon name="cloud-upload-outline" style="color: #ec4899;"></ion-icon>
-                <h2>Audio Intake Deck</h2>
+    <!-- Main Studio Console Container -->
+    <main class="studio-container fm-console-layout" id="main-console">
+        
+        <!-- Left Panel: Audio Ingestion Deck -->
+        <section class="panel producer-panel fm-hardware-deck">
+            <div class="panel-header fm-panel-header">
+                <div class="header-left">
+                    <div class="deck-indicator-led" style="background: #ec4899; box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);"></div>
+                    <ion-icon name="cloud-upload-outline" style="color: #ec4899;"></ion-icon>
+                    <h2>Audio Intake & Telemetry Deck</h2>
+                </div>
+                <div class="hardware-screws">
+                    <span class="screw"></span>
+                    <span class="screw"></span>
+                </div>
             </div>
-            <form id="analytics-form" class="studio-form">
-                <!-- Local File Upload Option -->
+
+            <!-- Ingestion Form -->
+            <form id="analytics-form" class="studio-form fm-form-chassis">
+                
+                <!-- Option 1: File Upload Dropzone -->
                 <div class="form-group">
-                    <label>Option 1: Upload Local Broadcast File</label>
-                    <div class="upload-dropzone">
+                    <label>
+                        <ion-icon name="folder-open-outline"></ion-icon> Option 1: Local Broadcast Audio File
+                    </label>
+                    <div class="upload-dropzone" id="dropzone-box">
                         <input type="file" id="audio-file" name="file" accept="audio/*" style="display: none;">
                         <label for="audio-file" class="upload-btn">
                             <ion-icon name="cloud-upload-outline"></ion-icon>
-                            <span>Choose Audio File</span>
+                            <span>Browse Audio File</span>
                         </label>
-                        <span id="file-name-display" class="file-name-text">No file selected</span>
-                        <span class="file-specs-text">Supports WAV, MP3, M4A (Max 50MB)</span>
-                        <button type="button" id="clear-file-btn" class="secondary-btn" style="display: none; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 0.3rem 0.8rem; font-size: 0.8rem; color: var(--text-sub); cursor: pointer; align-items: center; gap: 0.3rem; margin-top: 0.6rem; font-family: 'Inter', sans-serif; transition: all 0.2s ease;">
-                            <ion-icon name="trash-outline" style="font-size: 0.9rem; color: #ef4444;"></ion-icon>
+                        <div class="dropzone-text-group">
+                            <span id="file-name-display" class="file-name-text">Drag & drop WAV / MP3 / M4A here</span>
+                            <span class="file-specs-text">High-resolution acoustic analysis up to 50MB</span>
+                        </div>
+                        <button type="button" id="clear-file-btn" class="clear-file-action" style="display: none;">
+                            <ion-icon name="trash-outline"></ion-icon>
                             <span>Clear File</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- GCS Path Option -->
+                <!-- Option 2: GCS Path -->
                 <div class="form-group">
-                    <label for="gcs-path">Option 2: Google Cloud Storage Path</label>
+                    <label for="gcs-path">
+                        <ion-icon name="logo-google-playstore" style="color: #38bdf8;"></ion-icon> Option 2: Google Cloud Storage Path
+                    </label>
                     <div class="input-wrapper">
-                        <ion-icon name="logo-google-playstore" style="color: #38bdf8;"></ion-icon>
-                        <input type="text" id="gcs-path" name="gcs_path" placeholder="gs://my-broadcast-bucket/episode_01.wav"
-                            style="font-family: 'Inter', sans-serif; padding-left: 3.2rem;">
+                        <ion-icon name="cloud-outline"></ion-icon>
+                        <input type="text" id="gcs-path" name="gcs_path" placeholder="gs://my-broadcast-bucket/show_segment_01.wav">
                     </div>
                 </div>
 
-                <!-- YouTube Link Option -->
+                <!-- Option 3: YouTube Stream Link -->
                 <div class="form-group">
-                    <label for="youtube-link">Option 3: YouTube Stream Link</label>
+                    <label for="youtube-link">
+                        <ion-icon name="logo-youtube" style="color: #ef4444;"></ion-icon> Option 3: YouTube Live Broadcast Link
+                    </label>
                     <div class="input-wrapper">
-                        <ion-icon name="logo-youtube" style="color: #ef4444;"></ion-icon>
-                        <input type="url" id="youtube-link" name="youtube_link" placeholder="https://www.youtube.com/watch?v=..."
-                            style="font-family: 'Inter', sans-serif; padding-left: 3.2rem;">
+                        <ion-icon name="logo-youtube"></ion-icon>
+                        <input type="url" id="youtube-link" name="youtube_link" placeholder="https://www.youtube.com/watch?v=...">
                     </div>
                 </div>
 
-                <button type="submit" id="analyze-btn" class="primary-btn" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4); margin-top: 1.5rem;">
-                    <span class="btn-text">Run Acoustic Analytics</span>
-                    <ion-icon name="sparkles"></ion-icon>
+                <!-- Quick Sample Demonstrations -->
+                <div class="quick-demo-box">
+                    <span class="quick-demo-title"><ion-icon name="flash-outline"></ion-icon> Quick Sample Streams:</span>
+                    <div class="quick-demo-buttons">
+                        <button type="button" class="demo-preset-btn" id="demo-btn-1">
+                            <span>📻 90s Retro Radio Broadcast</span>
+                        </button>
+                        <button type="button" class="demo-preset-btn" id="demo-btn-2">
+                            <span>⚡ EDM Live Festival Set</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Run Analytics Button -->
+                <button type="submit" id="analyze-btn" class="btn primary-btn master-transmit-btn" style="background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #f59e0b 100%);">
+                    <div class="btn-glow-layer"></div>
+                    <ion-icon name="sparkles" class="btn-live-icon"></ion-icon>
+                    <span class="btn-text">RUN ACOUSTIC AUDIT • ANALYZE STREAM</span>
+                    <ion-icon name="arrow-forward"></ion-icon>
                 </button>
             </form>
         </section>
 
-        <!-- Output Panel (Right) -->
-        <section class="panel broadcast-panel" style="min-height: 550px;">
-            <div class="panel-header">
-                <ion-icon name="podium-outline" style="color: #ec4899;"></ion-icon>
-                <h2>Executive Analysis Dashboard</h2>
+        <!-- Right Panel: Executive Dashboard -->
+        <section class="panel broadcast-panel fm-stage-panel">
+            <div class="panel-header fm-panel-header">
+                <div class="header-left">
+                    <span class="stage-live-badge" style="background: rgba(236, 72, 153, 0.15); border-color: rgba(236, 72, 153, 0.4); color: #f472b6;">
+                        <ion-icon name="podium"></ion-icon> AUDIT CONSOLE
+                    </span>
+                    <h2>Executive Analysis Dashboard</h2>
+                </div>
+                <div class="stage-telemetry">
+                    <span class="signal-tag"><ion-icon name="hardware-chip"></ion-icon> GEMINI 3.7 MULTIMODAL</span>
+                </div>
             </div>
 
-            <!-- Pre-generation / Empty State -->
-            <div id="idle-stage" class="stage-state active">
-                <ion-icon name="server-outline" class="empty-icon" style="color: rgba(236, 72, 153, 0.15);"></ion-icon>
+            <!-- Idle State -->
+            <div id="idle-stage" class="stage-state active fm-idle-booth">
+                <div class="fm-vintage-radio-icon">
+                    <ion-icon name="server-outline" class="empty-icon" style="color: rgba(236, 72, 153, 0.4);"></ion-icon>
+                    <div class="radio-pulse-circle" style="border-color: rgba(236, 72, 153, 0.3);"></div>
+                </div>
                 <h3>Ingestion Deck Idle</h3>
-                <p>Submit an audio file, GCS storage URI, or YouTube stream link in the intake deck to initiate Google Cloud semantic mapping & executive analytics.</p>
+                <p>Submit an audio file, GCS storage URI, or YouTube stream link on the intake deck to initiate Google Cloud acoustic mapping, dialogue segmentation, and executive business analytics.</p>
+                <div class="idle-quick-hints">
+                    <span><ion-icon name="mic-outline"></ion-icon> Speech Flow & WPM</span>
+                    <span><ion-icon name="disc-outline"></ion-icon> Playlist Alignment Fit</span>
+                    <span><ion-icon name="trending-up-outline"></ion-icon> Monetization Strategy</span>
+                </div>
             </div>
 
             <!-- Loading State -->
-            <div id="loading-stage" class="stage-state">
-                <div class="sound-wave-loader">
-                    <div class="bar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);"></div>
-                    <div class="bar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);"></div>
-                    <div class="bar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);"></div>
-                    <div class="bar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);"></div>
-                    <div class="bar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);"></div>
+            <div id="loading-stage" class="stage-state fm-loading-booth">
+                <div class="fm-radar-loader" style="border-color: rgba(236, 72, 153, 0.4); box-shadow: 0 0 25px rgba(236, 72, 153, 0.25);">
+                    <div class="radar-sweep" style="background: conic-gradient(from 0deg, rgba(236, 72, 153, 0.8) 0deg, transparent 60deg, transparent 360deg);"></div>
+                    <div class="radar-center"><ion-icon name="analytics"></ion-icon></div>
                 </div>
-                <h3>Parsing Audio Stream...</h3>
-                <p class="loader-subtext">Multimodal Gemini models are running semantic acoustic inference, mapping speech markers, and validating playlist alignment scores.</p>
+                <div class="sound-wave-loader">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <h3>Parsing Audio Stream & Ingesting Telemetry...</h3>
+                <p class="loader-subtext">Multimodal Gemini models are running semantic acoustic inference, mapping speech markers, and calculating playlist cultural fit.</p>
             </div>
 
-            <!-- Dynamic Results Output Container -->
-            <div id="output-stage" class="stage-state output-showcase" style="display: none; gap: 2rem; text-align: left; align-items: stretch;">
+            <!-- Output State: Live Executive Report -->
+            <div id="output-stage" class="stage-state output-showcase fm-output-showcase" style="display: none;">
                 
-                <!-- Show Title Card -->
-                <div class="show-marquee" style="background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.3);">
-                    <ion-icon name="checkmark-done-circle-outline" style="color: #f472b6; font-size: 1.8rem;"></ion-icon>
-                    <h3 id="show-report-title" style="font-size: 1.4rem; font-weight: 800;">Show Report: Title</h3>
-                </div>
-
-                <!-- Show Overview Card -->
-                <div class="audio-booth" style="background: rgba(255,255,255,0.02); border-left: 4px solid #ec4899;">
-                    <h4 style="font-family: var(--font-heading); color: #f472b6; font-weight: 700; font-size: 1.1rem;">Executive Summary</h4>
-                    <p id="report-summary" style="color: var(--text-main); font-size: 0.95rem; line-height: 1.7; margin-top: 0.4rem;">High-level show overview will appear here...</p>
-                </div>
-
-                <!-- Core Performance Metrics Grid -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
-                    <!-- Flow Score Card -->
-                    <div class="song-card" style="flex-direction: column; align-items: flex-start; padding: 1.2rem; gap: 0.4rem;">
-                        <span style="color: var(--text-sub); font-size: 0.85rem; font-weight: 600;">Show Flow Quality Score</span>
-                        <div style="display: flex; align-items: baseline; gap: 0.5rem; margin-top: 0.2rem;">
-                            <span id="metric-flow-score" style="font-size: 2.2rem; font-family: var(--font-heading); font-weight: 800; color: #a855f7;">92</span>
-                            <span style="color: var(--text-sub); font-size: 0.9rem; font-weight: 600;">/ 100</span>
+                <!-- Show Title Marquee -->
+                <div class="show-marquee fm-billboard-marquee" style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%); border-color: rgba(236, 72, 153, 0.35);">
+                    <div class="billboard-left">
+                        <div class="live-signal-box" style="background: rgba(236, 72, 153, 0.2); border-color: #ec4899;">
+                            <span class="live-dot" style="background: #ec4899; box-shadow: 0 0 10px #ec4899;"></span>
+                            <span class="live-txt" style="color: #fce7f3;">AUDIT COMPLETE</span>
                         </div>
-                        <!-- Small glowing progress bar -->
-                        <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.08); border-radius: 50px; overflow: hidden; margin-top: 0.5rem;">
-                            <div id="bar-flow-score" style="height: 100%; width: 92%; background: var(--primary-gradient); border-radius: 50px;"></div>
-                        </div>
+                        <h3 id="show-report-title">Show Report: Ingested Broadcast</h3>
                     </div>
-
-                    <!-- Speech Pace & Energy -->
-                    <div class="song-card" style="flex-direction: column; align-items: flex-start; padding: 1.2rem; gap: 0.4rem;">
-                        <span style="color: var(--text-sub); font-size: 0.85rem; font-weight: 600;">Speech Metrics Overview</span>
-                        <div style="display: flex; flex-direction: column; width: 100%; gap: 0.6rem; margin-top: 0.4rem;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                                <span style="color: var(--text-sub);">Words Per Minute (Pace)</span>
-                                <strong id="metric-pace" style="color: #fff;">135 WPM</strong>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                                <span style="color: var(--text-sub);">Acoustic Energy Score</span>
-                                <strong id="metric-energy" style="color: #fff;">85%</strong>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
-                                <span style="color: var(--text-sub);">Global Sentiment Tone</span>
-                                <strong id="metric-sentiment" style="color: #fff;">Highly Enthusiastic</strong>
-                            </div>
-                        </div>
+                    <div class="billboard-right">
+                        <span class="badge-sub-pill"><ion-icon name="checkmark-circle"></ion-icon> VERIFIED AI AUDIT</span>
                     </div>
                 </div>
 
-                <!-- Topics Timeline Breakdown -->
-                <div class="playlist-booth">
+                <!-- Executive Summary Box -->
+                <div class="audio-booth fm-audio-console" style="border-left: 4px solid var(--fm-pink);">
                     <div class="booth-title" style="color: #f472b6;">
-                        <ion-icon name="list-outline"></ion-icon>
-                        <h4>Segment & Dialogue Breakdown</h4>
+                        <ion-icon name="document-text-outline"></ion-icon>
+                        <h4>Executive Show Summary</h4>
                     </div>
-                    <ul id="report-topics-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <!-- Dynamically populated list of segments -->
+                    <p id="report-summary" style="color: #f1f5f9; font-size: 0.95rem; line-height: 1.8;">High-level overview will appear here...</p>
+                </div>
+
+                <!-- 4-Metric KPI Grid -->
+                <div class="analytics-kpi-grid">
+                    <!-- Flow Quality Score -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Show Flow Quality Score</span>
+                            <ion-icon name="water-outline" class="kpi-icon"></ion-icon>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span id="metric-flow-score" class="kpi-big-num">92</span>
+                            <span class="kpi-scale">/ 100</span>
+                        </div>
+                        <div class="kpi-progress-track">
+                            <div id="bar-flow-score" class="kpi-progress-bar" style="width: 92%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Speech Pace (WPM) -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Speech Pace (WPM)</span>
+                            <ion-icon name="speedometer-outline" class="kpi-icon"></ion-icon>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span id="metric-pace" class="kpi-big-num">135</span>
+                            <span class="kpi-scale">WPM</span>
+                        </div>
+                        <span class="kpi-subtext">Optimal conversational radio tempo</span>
+                    </div>
+
+                    <!-- Acoustic Energy -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Acoustic Energy Level</span>
+                            <ion-icon name="flame-outline" class="kpi-icon"></ion-icon>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span id="metric-energy" class="kpi-big-num">85</span>
+                            <span class="kpi-scale">%</span>
+                        </div>
+                        <span class="kpi-subtext">Dynamic modulation & punchy presence</span>
+                    </div>
+
+                    <!-- Global Sentiment -->
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Global Sentiment & Tone</span>
+                            <ion-icon name="happy-outline" class="kpi-icon"></ion-icon>
+                        </div>
+                        <div class="kpi-value-row">
+                            <span id="metric-sentiment" class="kpi-sentiment-text">Enthusiastic</span>
+                        </div>
+                        <span class="kpi-subtext">High audience engagement factor</span>
+                    </div>
+                </div>
+
+                <!-- Segments & Dialogue Breakdown Timeline -->
+                <div class="playlist-booth fm-playlist-chassis">
+                    <div class="booth-title" style="color: #f472b6;">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <h4>Segment & Dialogue Timeline Breakdown</h4>
+                    </div>
+                    <ul id="report-topics-list" class="topics-timeline-list">
+                        <!-- Dynamically filled with segment cards -->
                     </ul>
                 </div>
 
-                <!-- Music Playlist Coherence Metrics -->
-                <div class="playlist-booth">
+                <!-- Playlist Coherence & Cultural Fit -->
+                <div class="playlist-booth fm-playlist-chassis">
                     <div class="booth-title" style="color: #f472b6;">
-                        <ion-icon name="disc-outline"></ion-icon>
+                        <ion-icon name="logo-youtube" class="yt-brand-icon"></ion-icon>
                         <h4>Playlist Placement & Cultural Coherence</h4>
+                        <span class="badge-ytm-pill">YouTube Music Verified</span>
                     </div>
-                    <ul id="report-playlist-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <!-- Dynamically populated list of song metrics -->
+                    <ul id="report-playlist-list" class="yt-songs-list fm-track-list">
+                        <!-- Dynamically filled with song alignment cards -->
                     </ul>
                 </div>
 
-                <!-- Business & Management Insights Recommendations -->
-                <div class="playlist-booth">
-                    <div class="booth-title" style="color: #f472b6;">
+                <!-- Business & Sponsorship Recommendations -->
+                <div class="playlist-booth fm-playlist-chassis">
+                    <div class="booth-title" style="color: #f59e0b;">
                         <ion-icon name="bulb-outline"></ion-icon>
-                        <h4>Management & Business Recommendations</h4>
+                        <h4>Executive Management & Monetization Recommendations</h4>
                     </div>
-                    <ul id="report-insights-list" style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem;">
-                        <!-- Dynamically populated list of insights -->
+                    <ul id="report-insights-list" class="insights-list">
+                        <!-- Dynamically filled with insights -->
                     </ul>
                 </div>
+
             </div>
         </section>
     </main>
 
-    <footer class="app-footer">
-        <p>Created with <strong>Gemini 3.5 multimodal models</strong> • Next-Gen AI Advanced Inferences</p>
+    <!-- Master Studio Footer -->
+    <footer class="app-footer fm-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <ion-icon name="radio"></ion-icon>
+                <span>AI Radio Jockey Studio • Management Operations & Acoustic Intelligence</span>
+            </div>
+            <p>Powered by <strong>Gemini 3.7 Multimodal Models</strong> • Next-Gen Speech & Media Intelligence</p>
+        </div>
     </footer>
 
-    <!-- Dynamic Ingestion logic -->
-    <script src="/static/analytics.js?v=1.8"></script>
+    <!-- Analytics Operations Logic -->
+    <script src="/static/analytics.js?v=9.2"></script>
 </body>
 
 </html>

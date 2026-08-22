@@ -4,43 +4,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Radio Jockey Studio | Gemini Powered Broadcasts</title>
+    <title>AI Radio Jockey Studio | FM Radio Music Event Broadcast Deck</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Latin Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Devanagari & Japanese Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Indian Regional Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Latin Fonts & Radio LED Digital Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800;900&family=Orbitron:wght@400;600;700;800;900&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <!-- Regional Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- Ionicons for modern icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="/static/styles.css?v=1.7">
+    <link rel="stylesheet" href="/static/styles.css?v=9.2">
 </head>
 
-<body>
+<body class="theme-fm-radio aspect-16-9">
+    <!-- Ambient Broadcast Glow Backgrounds -->
     <div class="glow-ambient glow-ambient-1"></div>
     <div class="glow-ambient glow-ambient-2"></div>
+    <div class="glow-ambient glow-ambient-3"></div>
+    <div class="radio-scanlines"></div>
 
-    <header class="app-header">
-        <div class="header-brand">
-            <div class="logo-mic">
-                <ion-icon name="mic-circle-outline"></ion-icon>
+    <!-- Top Master FM Radio Broadcast Header (Full Width Fluid) -->
+    <header class="app-header fm-master-header">
+        <div class="fm-top-banner">
+            <!-- Brand & Station Logo -->
+            <div class="header-brand">
+                <div class="logo-mic fm-pulse-logo">
+                    <ion-icon name="radio-outline"></ion-icon>
+                    <span class="fm-wave-ring"></span>
+                </div>
+                <div class="header-titles">
+                    <div class="brand-title-row">
+                        <h1>AI RJ Studio</h1>
+                        <div class="on-air-sign" id="master-on-air-sign">
+                            <span class="on-air-led"></span>
+                            <span class="on-air-text">ON AIR</span>
+                        </div>
+                    </div>
+                    <div class="header-sub-badges">
+                        <span class="badge fm-badge-gold">
+                            <ion-icon name="disc"></ion-icon> Google Cloud Powered
+                        </span>
+                        <span class="badge fm-badge-cyan">
+                            <ion-icon name="hardware-chip-outline"></ion-icon> Gemini 3.1 Advanced
+                        </span>
+                        <span class="badge fm-badge-pink">
+                            <ion-icon name="wifi-outline"></ion-icon> Ultra Stereo Hi-Fi
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="header-titles">
-                <h1>AI Radio Studio</h1>
-                <span class="badge">Gemini 3.1 Advanced</span>
+
+            <!-- FM Radio Digital LED Telemetry & Clock -->
+            <div class="fm-telemetry-cluster">
+                <div class="fm-led-box">
+                    <span class="led-label">STATION FREQ</span>
+                    <span class="led-digits led-amber" id="fm-current-freq">104.5 <small>MHz</small></span>
+                </div>
+                <div class="fm-led-box">
+                    <span class="led-label">STUDIO TIME</span>
+                    <span class="led-digits led-cyan" id="fm-digital-clock">00:00:00</span>
+                </div>
+                <div class="fm-led-box">
+                    <span class="led-label">ON-AIR TIME</span>
+                    <span class="led-digits led-green" id="fm-broadcast-timer">00:00:00</span>
+                </div>
+                <div class="fm-aspect-controls" title="Adjust Display Mode for Event Monitors & Projectors">
+                    <span class="aspect-label">DISPLAY MODE</span>
+                    <div class="aspect-btn-group">
+                        <button type="button" class="aspect-btn active" id="btn-aspect-16-9"
+                            title="16:9 Widescreen Console">
+                            <ion-icon name="tv-outline"></ion-icon> 16:9
+                        </button>
+                        <button type="button" class="aspect-btn" id="btn-aspect-4-3" title="4:3 Retro Studio Booth">
+                            <ion-icon name="tablet-landscape-outline"></ion-icon> 4:3
+                        </button>
+                        <button type="button" class="aspect-btn" id="btn-fullscreen-toggle"
+                            title="Toggle Fullscreen Stage Mode">
+                            <ion-icon name="expand-outline"></ion-icon> Fullscreen
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-        <p class="tagline">Broadcast live custom shows with deep personas, customized playlists, and next-generation
-            speech synthesis.</p>
-        <nav class="nav-tabs">
+
+        <!-- Interactive FM Frequency Dial & Preset Bar (Full Width & Interactive Click/Drag) -->
+        <div class="fm-tuner-dock">
+            <div class="tuner-title-tag">
+                <ion-icon name="pulse-outline"></ion-icon>
+                <span>FM BAND MASTER TUNER • CLICK/DRAG TO TUNE FREQUENCY</span>
+            </div>
+            <div class="tuner-scale-container" id="tuner-scale-container"
+                title="Click or drag anywhere to tune FM frequency">
+                <div class="tuner-scale-track" id="tuner-scale-track">
+                    <div class="tuner-ticks">
+                        <span>88.0</span><span>90.0</span><span>92.0</span><span>94.0</span><span>96.0</span><span>98.0</span><span>100.0</span><span>102.0</span><span>104.0</span><span>106.0</span><span>108.0</span>
+                    </div>
+                    <div class="tuner-needle" id="tuner-needle" style="left: 82.5%;">
+                        <div class="needle-line"></div>
+                        <div class="needle-glow"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Quick Station Presets for Instant Setup -->
+            <div class="fm-presets-bar">
+                <span class="preset-label">QUICK CHANNELS:</span>
+                <button type="button" class="fm-preset-btn btn-fav-preset" id="btn-quick-favorite"
+                    title="Load Your Saved Favorite Channel from Cloud Cache & GCS Storage">
+                    <span class="preset-num"><ion-icon name="heart" class="heart-pulse-icon"></ion-icon></span> <span id="fav-preset-label">★ Favorite Channel</span>
+                </button>
+                <button type="button" class="fm-preset-btn active" id="btn-preset-custom" data-preset="custom"
+                    title="Custom Radio Broadcast Studio - Configure options manually and transmit on demand">
+                    <span class="preset-num">🎛️</span> Custom Studio
+                </button>
+                <button type="button" class="fm-preset-btn" data-freq="92.5" data-persona="Retro Nostalgia Master"
+                    data-theme="Bollywood Retro Classics Special" data-tone="Witty, sarcastic, and highly engaging"
+                    data-sample="retro" data-ad="glowskin" data-include-ad="true" title="92.5 FM Retro Hits • Auto-Transmit on Select">
+                    <span class="preset-num">92.5</span> Retro Rewind
+                </button>
+                <button type="button" class="fm-preset-btn" data-freq="98.4" data-persona="Sci-Fi Tech Geek"
+                    data-theme="EDM Club Mix & Dance Party Cues"
+                    data-tone="High-Energy, cheerful, and extremely enthusiastic" data-sample="tech"
+                    data-ad="bytesize" data-include-ad="true" title="98.4 FM Cyber Pulse • Auto-Transmit on Select">
+                    <span class="preset-num">98.4</span> Cyber Beats
+                </button>
+                <button type="button" class="fm-preset-btn" data-freq="101.2" data-persona="Energetic Hype MC"
+                    data-theme="EDM Club Mix & Dance Party Cues"
+                    data-tone="High-Energy, cheerful, and extremely enthusiastic" data-sample="food"
+                    data-ad="aerofit" data-include-ad="true" title="101.2 FM Live Mainstage • Auto-Transmit on Select">
+                    <span class="preset-num">101.2</span> Live Mainstage
+                </button>
+                <button type="button" class="fm-preset-btn" data-freq="104.5" data-persona="Cosmic Night Host"
+                    data-theme="Starlight Meditations & Nostalgia" data-tone="Seductive, mysterious, deep and calming"
+                    data-sample="cosmic" data-ad="ecobrew" data-include-ad="true" title="104.5 FM Cosmic Vibe • Auto-Transmit on Select">
+                    <span class="preset-num">104.5</span> Cosmic Wave
+                </button>
+                <button type="button" class="fm-preset-btn" data-freq="106.8" data-persona="Late Night Calm Guru"
+                    data-theme="Midnight Melancholy & Acoustic Lounge"
+                    data-tone="Soothing, conversational, warm, and friendly" data-sample="rain"
+                    data-ad="solarcharge" data-include-ad="true" title="106.8 FM Midnight Lounge • Auto-Transmit on Select">
+                    <span class="preset-num">106.8</span> Midnight Chill
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs fm-nav-deck">
             <a href="/" class="nav-tab active">
                 <ion-icon name="radio-outline"></ion-icon>
-                <span>Broadcast Studio</span>
+                <span>Live Broadcast Studio</span>
             </a>
             <a href="/static/analytics.html" class="nav-tab">
                 <ion-icon name="analytics-outline"></ion-icon>
@@ -49,310 +172,571 @@
         </nav>
     </header>
 
-    <main class="studio-container">
-        <!-- Input Dashboard Left Panel -->
-        <section class="panel producer-panel">
-            <div class="panel-header">
-                <ion-icon name="options-outline"></ion-icon>
-                <h2>Broadcast Control Deck</h2>
+    <!-- Main Studio Console Container (Fluid Full Width & 16:9 / 4:3 Optimized) -->
+    <main class="studio-container fm-console-layout" id="main-console">
+
+        <!-- Left Panel: DJ Broadcast Control Deck & Mixer Hardware -->
+        <section class="panel producer-panel fm-hardware-deck">
+            <div class="panel-header fm-panel-header">
+                <div class="header-left">
+                    <div class="deck-indicator-led"></div>
+                    <ion-icon name="options-outline"></ion-icon>
+                    <h2>DJ Transmitter Deck</h2>
+                </div>
+                <div class="hardware-screws">
+                    <span class="screw"></span>
+                    <span class="screw"></span>
+                </div>
             </div>
-            <form id="rj-form" class="studio-form">
+
+            <!-- Live Stereo Hardware VU Level Meters -->
+            <div class="fm-vu-meters-panel">
+                <div class="vu-meter-header">
+                    <span>BROADCAST STEREO MODULATION</span>
+                    <span class="vu-status-badge" id="vu-status-text">STEREO READY</span>
+                </div>
+                <div class="vu-meters-rack">
+                    <div class="vu-channel">
+                        <span class="ch-tag">L</span>
+                        <div class="vu-ladder" id="vu-ladder-left">
+                            <span class="vu-seg green"></span><span class="vu-seg green"></span><span
+                                class="vu-seg green"></span>
+                            <span class="vu-seg green"></span><span class="vu-seg green"></span><span
+                                class="vu-seg yellow"></span>
+                            <span class="vu-seg yellow"></span><span class="vu-seg yellow"></span><span
+                                class="vu-seg red"></span>
+                            <span class="vu-seg red peak"></span>
+                        </div>
+                    </div>
+                    <div class="vu-channel">
+                        <span class="ch-tag">R</span>
+                        <div class="vu-ladder" id="vu-ladder-right">
+                            <span class="vu-seg green"></span><span class="vu-seg green"></span><span
+                                class="vu-seg green"></span>
+                            <span class="vu-seg green"></span><span class="vu-seg green"></span><span
+                                class="vu-seg yellow"></span>
+                            <span class="vu-seg yellow"></span><span class="vu-seg yellow"></span><span
+                                class="vu-seg red"></span>
+                            <span class="vu-seg red peak"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Broadcast Configuration Form -->
+            <form id="rj-form" class="studio-form fm-form-chassis">
                 <div class="form-group">
-                    <label for="broadcast_mode">Broadcast Mode</label>
-                    <div class="input-wrapper">
+                    <label for="broadcast_mode">
+                        <ion-icon name="radio-outline"></ion-icon> Broadcast Mode
+                    </label>
+                    <div class="input-wrapper custom-select-wrap">
                         <ion-icon name="radio-outline"></ion-icon>
-                        <select id="broadcast_mode" name="broadcast_mode" required
-                            style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                            <option value="single" selected>Single RJ Monologue</option>
+                        <select id="broadcast_mode" name="broadcast_mode" required>
+                            <option value="single" selected>Single RJ Monologue (Live Solo Host)</option>
                             <option value="multi">Talk Show (Main Host & Guest Interview)</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="persona">RJ Persona</label>
-                    <div class="input-wrapper">
-                        <ion-icon name="person-outline"></ion-icon>
-                        <select id="persona" name="persona" required
-                            style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                            <option value="Cosmic Night Host" style="background: #0b0f19; color: #fff;" selected>Cosmic Night Host (Mysterious & Chill)</option>
-                            <option value="Energetic Hype MC" style="background: #0b0f19; color: #fff;">Energetic Hype MC (Club & Pop Beats)</option>
-                            <option value="Late Night Calm Guru" style="background: #0b0f19; color: #fff;">Late Night Calm Guru (Soothing & Warm)</option>
-                            <option value="Retro Nostalgia Master" style="background: #0b0f19; color: #fff;">Retro Nostalgia Master (Classic Hits)</option>
-                            <option value="Indie Music Explorer" style="background: #0b0f19; color: #fff;">Indie Music Explorer (Undiscovered Tracks)</option>
-                            <option value="Sports Fanatic RJ" style="background: #0b0f19; color: #fff;">Sports Fanatic RJ (High Passion & Action)</option>
-                            <option value="Local Street Foodie" style="background: #0b0f19; color: #fff;">Local Street Foodie (High Enthusiasm & Flavor)</option>
-                            <option value="Sci-Fi Tech Geek" style="background: #0b0f19; color: #fff;">Sci-Fi Tech Geek (Smart, Futurist & Curious)</option>
-                            <option value="Eco-Warrior Planet Guide" style="background: #0b0f19; color: #fff;">Eco-Warrior Planet Guide (Peaceful & Inspiring)</option>
-                            <option value="Mystery & True Crime Narrator" style="background: #0b0f19; color: #fff;">Mystery & True Crime Narrator (Suspenseful & Dramatic)</option>
-                            <option value="Romantic Love Guru" style="background: #0b0f19; color: #fff;">Romantic Love Guru (Warm, Affectionate & Comforting)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="language_region">Language & Regional Culture</label>
-                    <div class="input-wrapper">
+                    <label for="language_region">
+                        <ion-icon name="globe-outline"></ion-icon> Language & Regional Dialect
+                    </label>
+                    <div class="input-wrapper custom-select-wrap">
                         <ion-icon name="globe-outline"></ion-icon>
-                        <select id="language_region" name="language_region" required
-                            style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                            <optgroup label="Global Languages" style="background: #0b0f19; color: #6366f1; font-weight: bold;">
-                                <option value="en-US" style="background: #0b0f19; color: #fff;" selected>English (United States) - US Radio Style</option>
-                                <option value="en-GB" style="background: #0b0f19; color: #fff;">English (United Kingdom) - Classy BBC Style</option>
-                                <option value="es-ES" style="background: #0b0f19; color: #fff;">Spanish (Spain) - Warm Madrid Radio Style</option>
-                                <option value="fr-FR" style="background: #0b0f19; color: #fff;">French (France) - Elegant Parisian Style</option>
-                                <option value="ja-JP" style="background: #0b0f19; color: #fff;">Japanese (Japan) - Enthusiastic Tokyo FM Style</option>
+                        <select id="language_region" name="language_region" required>
+                            <optgroup label="Indian Regional Languages">
+                                <option value="en-IN" selected>Hinglish (India) - Bollywood FM Mix Style</option>
+                                <option value="hi-IN">Hindi (India) - Classic Bollywood Radio</option>
+                                <option value="kn-IN">Kannada (India) - Sandalwood FM Style</option>
+                                <option value="ta-IN">Tamil (India) - Lively Chennai FM Style</option>
+                                <option value="te-IN">Telugu (India) - Energetic Tollywood Radio</option>
+                                <option value="ml-IN">Malayalam (India) - Warm Kerala FM Style</option>
+                                <option value="mr-IN">Marathi (India) - Lively Mumbai FM Style</option>
                             </optgroup>
-                            <optgroup label="Indian Regional Languages" style="background: #0b0f19; color: #6366f1; font-weight: bold;">
-                                <option value="en-IN" style="background: #0b0f19; color: #fff;">Hinglish (India) - Bollywood FM Mix Style</option>
-                                <option value="hi-IN" style="background: #0b0f19; color: #fff;">Hindi (India) - Classic Bollywood Radio</option>
-                                <option value="kn-IN" style="background: #0b0f19; color: #fff;">Kannada (India) - Sandalwood FM Style</option>
-                                <option value="ta-IN" style="background: #0b0f19; color: #fff;">Tamil (India) - Lively Chennai FM Style</option>
-                                <option value="te-IN" style="background: #0b0f19; color: #fff;">Telugu (India) - Energetic Tollywood Radio</option>
-                                <option value="ml-IN" style="background: #0b0f19; color: #fff;">Malayalam (India) - Warm Kerala FM Style</option>
-                                <option value="mr-IN" style="background: #0b0f19; color: #fff;">Marathi (India) - Lively Mumbai FM Style</option>
+                            <optgroup label="Global Languages">
+                                <option value="en-US">English (United States) - US Radio Style</option>
+                                <option value="en-GB">English (United Kingdom) - Classy BBC Style</option>
+                                <option value="es-ES">Spanish (Spain) - Warm Madrid Radio Style</option>
+                                <option value="fr-FR">French (France) - Elegant Parisian Style</option>
+                                <option value="ja-JP">Japanese (Japan) - Enthusiastic Tokyo FM Style</option>
                             </optgroup>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="personality">Personality & Tone</label>
-                    <div class="input-wrapper">
+                    <label for="persona">
+                        <ion-icon name="person-outline"></ion-icon> RJ Persona & Station Style
+                    </label>
+                    <div class="input-wrapper custom-select-wrap">
+                        <ion-icon name="person-outline"></ion-icon>
+                        <select id="persona" name="persona" required>
+                            <option value="Cosmic Night Host" selected>Cosmic Night Host (Mysterious & Chill)</option>
+                            <option value="Energetic Hype MC">Energetic Hype MC (Club & Pop Beats)</option>
+                            <option value="Late Night Calm Guru">Late Night Calm Guru (Soothing & Warm)</option>
+                            <option value="Retro Nostalgia Master">Retro Nostalgia Master (Classic Hits)</option>
+                            <option value="Indie Music Explorer">Indie Music Explorer (Undiscovered Tracks)</option>
+                            <option value="Sports Fanatic RJ">Sports Fanatic RJ (High Passion & Action)</option>
+                            <option value="Local Street Foodie">Local Street Foodie (High Enthusiasm & Flavor)</option>
+                            <option value="Sci-Fi Tech Geek">Sci-Fi Tech Geek (Smart, Futurist & Curious)</option>
+                            <option value="Eco-Warrior Planet Guide">Eco-Warrior Planet Guide (Peaceful & Inspiring)
+                            </option>
+                            <option value="Mystery & True Crime Narrator">Mystery & True Crime Narrator (Suspenseful &
+                                Dramatic)</option>
+                            <option value="Romantic Love Guru">Romantic Love Guru (Warm, Affectionate & Comforting)
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="personality">
+                        <ion-icon name="chatbubbles-outline"></ion-icon> Personality & Vocal Tone
+                    </label>
+                    <div class="input-wrapper custom-select-wrap">
                         <ion-icon name="chatbubbles-outline"></ion-icon>
-                        <select id="personality" name="personality" required
-                            style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                            <option value="Seductive, mysterious, deep and calming" style="background: #0b0f19; color: #fff;" selected>Seductive, mysterious, deep and calming</option>
-                            <option value="High-Energy, cheerful, and extremely enthusiastic" style="background: #0b0f19; color: #fff;">High-Energy, cheerful, and extremely enthusiastic</option>
-                            <option value="Witty, sarcastic, and highly engaging" style="background: #0b0f19; color: #fff;">Witty, sarcastic, and highly engaging</option>
-                            <option value="Soothing, conversational, warm, and friendly" style="background: #0b0f19; color: #fff;">Soothing, conversational, warm, and friendly</option>
-                            <option value="Informative, intellectual, and professional" style="background: #0b0f19; color: #fff;">Informative, intellectual, and professional</option>
+                        <select id="personality" name="personality" required>
+                            <option value="Seductive, mysterious, deep and calming" selected>Seductive, mysterious, deep
+                                and calming</option>
+                            <option value="High-Energy, cheerful, and extremely enthusiastic">High-Energy, cheerful, and
+                                extremely enthusiastic</option>
+                            <option value="Witty, sarcastic, and highly engaging">Witty, sarcastic, and highly engaging
+                            </option>
+                            <option value="Soothing, conversational, warm, and friendly">Soothing, conversational, warm,
+                                and friendly</option>
+                            <option value="Informative, intellectual, and professional">Informative, intellectual, and
+                                professional</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="theme">Show Theme</label>
-                    <div class="input-wrapper">
+                    <label for="theme">
+                        <ion-icon name="musical-notes-outline"></ion-icon> Music Show Theme
+                    </label>
+                    <div class="input-wrapper custom-select-wrap">
                         <ion-icon name="musical-notes-outline"></ion-icon>
-                        <select id="theme" name="theme" required
-                            style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                            <option value="Starlight Meditations & Nostalgia" style="background: #0b0f19; color: #fff;" selected>Starlight Meditations & Nostalgia</option>
-                            <option value="Morning Traffic Energizer & Top Hits" style="background: #0b0f19; color: #fff;">Morning Traffic Energizer & Top Hits</option>
-                            <option value="Midnight Melancholy & Acoustic Lounge" style="background: #0b0f19; color: #fff;">Midnight Melancholy & Acoustic Lounge</option>
-                            <option value="Bollywood Retro Classics Special" style="background: #0b0f19; color: #fff;">Bollywood Retro Classics Special</option>
-                            <option value="EDM Club Mix & Dance Party Cues" style="background: #0b0f19; color: #fff;">EDM Club Mix & Dance Party Cues</option>
+                        <select id="theme" name="theme" required>
+                            <option value="Starlight Meditations & Nostalgia" selected>Starlight Meditations & Nostalgia
+                            </option>
+                            <option value="Morning Traffic Energizer & Top Hits">Morning Traffic Energizer & Top Hits
+                            </option>
+                            <option value="Midnight Melancholy & Acoustic Lounge">Midnight Melancholy & Acoustic Lounge
+                            </option>
+                            <option value="Bollywood Retro Classics Special">Bollywood Retro Classics Special</option>
+                            <option value="EDM Club Mix & Dance Party Cues">EDM Club Mix & Dance Party Cues</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="additional_info_sample">Additional Details / Local Context</label>
-                    <div class="input-wrapper">
+                    <label for="additional_info_sample">
+                        <ion-icon name="list-outline"></ion-icon> Additional Details / Local Context
+                    </label>
+                    <div class="input-wrapper custom-select-wrap">
                         <ion-icon name="list-outline"></ion-icon>
-                        <select id="additional_info_sample" name="additional_info_sample" required
-                            style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                            <option value="cosmic" style="background: #0b0f19; color: #fff;" selected>Late Night Cosmic Vibes (Reflecting on cosmic events & night workers)</option>
-                            <option value="rain" style="background: #0b0f19; color: #fff;">Heavy Morning Monsoons (Waterlogging warnings & traffic safety)</option>
-                            <option value="food" style="background: #0b0f19; color: #fff;">Weekend Street Food Fest (Local culinary highlights)</option>
-                            <option value="retro" style="background: #0b0f19; color: #fff;">Retro Music Trivia (90s golden hits & vinyl collection)</option>
-                            <option value="tech" style="background: #0b0f19; color: #fff;">Tech & AI Future Talk (AI changes & future views)</option>
-                            <option value="custom" style="background: #0b0f19; color: #fff;">Write Custom Info...</option>
+                        <select id="additional_info_sample" name="additional_info_sample" required>
+                            <option value="cosmic" selected>Late Night Cosmic Vibes (Reflecting on cosmic events & night
+                                workers)</option>
+                            <option value="rain">Heavy Morning Monsoons (Waterlogging warnings & traffic safety)
+                            </option>
+                            <option value="food">Weekend Street Food Fest (Local culinary highlights)</option>
+                            <option value="retro">Retro Music Trivia (90s golden hits & vinyl collection)</option>
+                            <option value="tech">Tech & AI Future Talk (AI changes & future views)</option>
+                            <option value="custom">Write Custom Info...</option>
                         </select>
                     </div>
                 </div>
 
                 <div id="additional-info-custom-container" class="form-group" style="display: none;">
-                    <label for="additional_info">Custom Details / Local Context</label>
+                    <label for="additional_info">Custom Details / Event Shoutouts</label>
                     <div class="input-wrapper textarea-wrapper">
                         <ion-icon name="newspaper-outline"></ion-icon>
                         <textarea id="additional_info" name="additional_info" rows="3"
-                            placeholder="Include shoutouts, special topics, weather mentions..."></textarea>
+                            placeholder="Include festival shoutouts, special topics, event venue details, crowd mentions..."></textarea>
                     </div>
                 </div>
-                <div class="form-group" style="border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.2rem; background: rgba(255,255,255,0.02); margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.8rem;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
-                        <label for="include_ad" style="margin-bottom: 0; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; font-weight: 600; color: #e2e8f0;">
-                            <ion-icon name="megaphone-outline" style="color: #ec4899; font-size: 1.2rem;"></ion-icon>
-                            Include Sponsor Product Ad
+
+                <!-- Sponsor Ad Section -->
+                <div class="form-group sponsor-ad-card">
+                    <div class="ad-toggle-header">
+                        <label for="include_ad" class="ad-checkbox-label">
+                            <ion-icon name="megaphone-outline"></ion-icon>
+                            <span>Include Live Sponsor Product Ad</span>
                         </label>
-                        <input type="checkbox" id="include_ad" name="include_ad" style="width: 1.2rem; height: 1.2rem; cursor: pointer; accent-color: #ec4899; background: rgba(10, 15, 27, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 4px;">
+                        <input type="checkbox" id="include_ad" name="include_ad" class="fm-toggle-checkbox">
                     </div>
-                    <div id="ad-details-container" style="display: none; flex-direction: column; gap: 0.8rem;">
-                        <label for="ad_product_sample" style="font-size: 0.85rem; color: var(--text-sub); font-weight: 600;">Choose Sponsor Ad</label>
-                        <div class="input-wrapper">
-                            <ion-icon name="list-outline"></ion-icon>
-                            <select id="ad_product_sample" name="ad_product_sample" required
-                                style="width: 100%; background: rgba(10, 15, 27, 0.7) url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 1.2rem top 50%; background-size: 0.65rem auto; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 3rem 1rem 3.2rem; color: #fff; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none; transition: all 0.3s ease; appearance: none; -webkit-appearance: none; cursor: pointer;">
-                                <option value="ecobrew" style="background: #0b0f19; color: #fff;" selected>EcoBrew Coffee (Rich organic taste, 20% off code BREW20)</option>
-                                <option value="aerofit" style="background: #0b0f19; color: #fff;">AeroFit Sneakers (Ultra lightweight, BOGO code AEROFIT)</option>
-                                <option value="bytesize" style="background: #0b0f19; color: #fff;">ByteSize AI Assistant (Productivity tool, free trial at bytesize.ai)</option>
-                                <option value="solarcharge" style="background: #0b0f19; color: #fff;">SolarCharge Power Bank (Eco pocket battery, 15% off code SOLAR15)</option>
-                                <option value="glowskin" style="background: #0b0f19; color: #fff;">GlowSkin Organic Soap (Gentle care, code GLOWUP free shipping)</option>
-                                <option value="custom" style="background: #0b0f19; color: #fff;">Write Custom Ad...</option>
+                    <div id="ad-details-container"
+                        style="display: none; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem;">
+                        <label for="ad_product_sample" class="sub-label">Choose Sponsor Ad Preset</label>
+                        <div class="input-wrapper custom-select-wrap">
+                            <ion-icon name="pricetag-outline"></ion-icon>
+                            <select id="ad_product_sample" name="ad_product_sample" required>
+                                <option value="ecobrew" selected>EcoBrew Coffee (Rich organic taste, 20% off code
+                                    BREW20)</option>
+                                <option value="aerofit">AeroFit Sneakers (Ultra lightweight, BOGO code AEROFIT)</option>
+                                <option value="bytesize">ByteSize AI Assistant (Productivity tool, free trial at
+                                    bytesize.ai)</option>
+                                <option value="solarcharge">SolarCharge Power Bank (Eco pocket battery, 15% off code
+                                    SOLAR15)</option>
+                                <option value="glowskin">GlowSkin Organic Soap (Gentle care, code GLOWUP free shipping)
+                                </option>
+                                <option value="custom">Write Custom Ad...</option>
                             </select>
                         </div>
                         <div id="ad-custom-input-container" style="display: none; flex-direction: column; gap: 0.6rem;">
-                            <label for="ad_product" style="font-size: 0.85rem; color: var(--text-sub); font-weight: 600;">Custom Brand/Product Details</label>
+                            <label for="ad_product" class="sub-label">Custom Brand/Product Details</label>
                             <div class="input-wrapper">
                                 <ion-icon name="pricetag-outline"></ion-icon>
-                                <input type="text" id="ad_product" name="ad_product" placeholder="e.g. Brand - Description, promo code/link" style="width: 100%; background: rgba(10, 15, 27, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 1rem 1rem 3.2rem; color: #fff; font-family: var(--font-body); font-size: 1rem; outline: none; transition: all 0.3s ease;">
+                                <input type="text" id="ad_product" name="ad_product"
+                                    placeholder="e.g. Brand - Description, promo code/link">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" id="submit-btn" class="btn primary-btn">
-                    <span class="btn-text">Synthesize RJ Show</span>
+                <!-- Master Broadcast Trigger Button -->
+                <button type="submit" id="submit-btn" class="btn primary-btn master-transmit-btn">
+                    <div class="btn-glow-layer"></div>
+                    <ion-icon name="radio" class="btn-live-icon"></ion-icon>
+                    <span class="btn-text">TRANSMIT SHOW • SYNTHESIZE LIVE</span>
                     <ion-icon name="sparkles"></ion-icon>
                 </button>
             </form>
         </section>
 
-        <!-- Broadcast Stage Right Panel -->
-        <section class="panel broadcast-panel">
-            <div class="panel-header">
-                <ion-icon name="radio-outline"></ion-icon>
-                <h2>Live Studio Stream</h2>
+        <!-- Right Panel: Live Broadcast Stage & Jukebox Deck (Fluid Full Width Expansion) -->
+        <section class="panel broadcast-panel fm-stage-panel">
+            <div class="panel-header fm-panel-header">
+                <div class="header-left">
+                    <span class="stage-live-badge"><ion-icon name="videocam"></ion-icon> LIVE STAGE</span>
+                    <h2>Studio Broadcast & Queue</h2>
+                </div>
+                <div class="stage-telemetry">
+                    <span class="signal-tag"><ion-icon name="wifi"></ion-icon> 320 KBPS DIGITAL STEREO</span>
+                </div>
             </div>
 
-            <!-- Pre-generation Empty State -->
-            <div id="idle-stage" class="stage-state active">
-                <ion-icon name="headset-outline" class="empty-icon"></ion-icon>
-                <h3>On Air Studio Waiting</h3>
-                <p>Configure your RJ credentials in the deck above and launch production to witness Gemini 3.1 craft a
-                    full script and live audio segment.</p>
+            <!-- Idle State: Waiting to Transmit -->
+            <div id="idle-stage" class="stage-state active fm-idle-booth">
+                <div class="fm-vintage-radio-icon">
+                    <ion-icon name="headset-outline" class="empty-icon"></ion-icon>
+                    <div class="radio-pulse-circle"></div>
+                </div>
+                <h3>FM On-Air Studio Ready</h3>
+                <p>Select your persona presets or customize your music event details on the DJ deck to synthesize
+                    dual-segment scripts and HD voice monologues powered by Gemini 3.1 & YouTube Music.</p>
+                <div class="idle-quick-hints">
+                    <span><ion-icon name="flash-outline"></ion-icon> Instant Dial Presets</span>
+                    <span><ion-icon name="globe-outline"></ion-icon> Hinglish & Multilingual Audio</span>
+                    <span><ion-icon name="logo-youtube"></ion-icon> Embedded Music Playback</span>
+                </div>
+                <!-- DJ Studio Keyboard Shortcut Guide -->
+                <div class="dj-shortcuts-legend">
+                    <span class="shortcut-tag"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> Transmit</span>
+                    <span class="shortcut-tag"><kbd>Space</kbd> Play / Pause</span>
+                    <span class="shortcut-tag"><kbd>1</kbd> / <kbd>2</kbd> Switch Decks</span>
+                </div>
             </div>
 
-            <!-- Loading State -->
-            <div id="loading-stage" class="stage-state">
+            <!-- Loading State: AI Synthesizing with Dynamic Progress Pipeline -->
+            <div id="loading-stage" class="stage-state fm-loading-booth">
+                <div class="fm-radar-loader">
+                    <div class="radar-sweep"></div>
+                    <div class="radar-center"><ion-icon name="radio"></ion-icon></div>
+                </div>
                 <div class="sound-wave-loader">
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
                     <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
                 </div>
-                <h3>Synthesizing Voice & Script...</h3>
-                <p class="loader-subtext">Gemini 3.5 Flash is composing the monologue while Flash TTS initializes speech
-                    streams.</p>
+                <h3 id="loading-status-heading">Composing Broadcast Monologue & Speech...</h3>
+                <p class="loader-subtext">Gemini 3.5 Flash is generating custom radio scripts and curating verified
+                    YouTube Music festival tracks while Flash TTS renders HD audio streams.</p>
+
+                <!-- Dynamic Pipeline Stepper -->
+                <div class="broadcast-pipeline-stepper">
+                    <div class="pipeline-step active" id="pipeline-step-1">
+                        <div class="step-badge"><ion-icon name="create-outline"></ion-icon></div>
+                        <span>1. Scripting</span>
+                    </div>
+                    <div class="pipeline-line"></div>
+                    <div class="pipeline-step" id="pipeline-step-2">
+                        <div class="step-badge"><ion-icon name="musical-notes-outline"></ion-icon></div>
+                        <span>2. YT Music Tracks</span>
+                    </div>
+                    <div class="pipeline-line"></div>
+                    <div class="pipeline-step" id="pipeline-step-3">
+                        <div class="step-badge"><ion-icon name="mic-outline"></ion-icon></div>
+                        <span>3. Flash TTS Audio</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- Output Display State -->
-            <div id="output-stage" class="stage-state output-showcase">
-                <div class="show-marquee">
-                    <span class="live-dot"></span>
-                    <h3 id="display-title">Show Title Here</h3>
+            <!-- Output State: Live On-Air Broadcast Deck -->
+            <div id="output-stage" class="stage-state output-showcase fm-output-showcase">
+
+                <!-- Live Show Billboard Marquee -->
+                <div class="show-marquee fm-billboard-marquee">
+                    <div class="billboard-left">
+                        <div class="live-signal-box">
+                            <span class="live-dot"></span>
+                            <span class="live-txt">TRANSMITTING</span>
+                        </div>
+                        <h3 id="display-title">Show Title Here</h3>
+                    </div>
+                    <div class="billboard-right">
+                        <button type="button" id="btn-toggle-favorite" class="btn-fav-toggle" title="Save this broadcast as Favorite Channel in persistent storage">
+                            <ion-icon name="heart-outline"></ion-icon>
+                            <span id="fav-btn-label">Save as Favorite</span>
+                        </button>
+                        <span class="billboard-freq-tag" id="billboard-freq-badge">104.5 MHz FM</span>
+                        <span class="badge-ytm-pill"><ion-icon name="musical-notes"></ion-icon> LIVE QUEUE READY</span>
+                    </div>
                 </div>
 
-                <!-- Segment Switcher Tabs -->
-                <div class="segment-tabs" style="display: flex; gap: 1rem; margin-bottom: 0.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 0.5rem;">
-                    <button type="button" class="segment-tab active" id="tab-segment1" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: transparent; border: none; color: var(--text-sub); font-family: var(--font-heading); font-weight: 700; font-size: 1rem; padding: 0.8rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
-                        <ion-icon name="radio-outline" style="font-size: 1.2rem;"></ion-icon>
-                        <span id="tab-title-segment1">Part 1: The Opener</span>
+                <!-- Dual Segment Switcher Tabs (Deck A / Deck B) -->
+                <div class="segment-tabs fm-deck-tabs">
+                    <button type="button" class="segment-tab active" id="tab-segment1">
+                        <div class="tab-cue-light"></div>
+                        <ion-icon name="radio-outline"></ion-icon>
+                        <span id="tab-title-segment1">Deck A: The Opener</span>
                     </button>
-                    <button type="button" class="segment-tab" id="tab-segment2" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: transparent; border: none; color: var(--text-sub); font-family: var(--font-heading); font-weight: 700; font-size: 1rem; padding: 0.8rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
-                        <ion-icon name="play-forward-outline" style="font-size: 1.2rem;"></ion-icon>
-                        <span id="tab-title-segment2">Part 2: The Follow-up</span>
+                    <button type="button" class="segment-tab" id="tab-segment2">
+                        <div class="tab-cue-light"></div>
+                        <ion-icon name="play-forward-outline"></ion-icon>
+                        <span id="tab-title-segment2">Deck B: The Follow-up</span>
                     </button>
                 </div>
 
-                <!-- Segment 1 Content Panel -->
-                <div id="content-segment1" class="segment-content active" style="display: flex; flex-direction: column; gap: 2rem;">
-                    <!-- Custom Audio Station 1 -->
-                    <div class="audio-booth">
+                <!-- Segment 1 Content Deck -->
+                <div id="content-segment1" class="segment-content active fm-segment-box">
+                    <!-- Audio Booth 1 -->
+                    <div class="audio-booth fm-audio-console">
                         <div class="audio-metadata">
-                            <div class="pulse-ring"></div>
+                            <div class="pulse-ring">
+                                <ion-icon name="mic"></ion-icon>
+                            </div>
                             <div class="metadata-text">
                                 <h4 id="audio-status-title-1">Now Transmitting</h4>
-                                <span id="audio-subtitle-1">Gemini 3.1 Flash Speech Output - Part 1</span>
+                                <span id="audio-subtitle-1">Gemini 3.1 Flash Speech Synthesis - Part 1</span>
+                            </div>
+                            <div class="visualizer-status-pill">
+                                <span class="viz-dot"></span>
+                                <span>AUDIO SPECTRUM</span>
                             </div>
                         </div>
+
+                        <!-- Real-time Canvas Audio Spectrum Visualizer (Auto-Fit) -->
+                        <div class="canvas-visualizer-wrap">
+                            <canvas id="visualizer-canvas-1" class="audio-spectrum-canvas"></canvas>
+                        </div>
+
                         <!-- Audio Generating Placeholder 1 -->
-                        <div id="audio-loading-placeholder-1" style="display: none; align-items: center; gap: 0.8rem; color: var(--text-sub); font-size: 0.95rem; padding: 0.5rem 0;">
+                        <div id="audio-loading-placeholder-1" class="audio-gen-placeholder" style="display: none;">
                             <div class="sound-wave-loader-mini">
                                 <div class="bar"></div>
                                 <div class="bar"></div>
                                 <div class="bar"></div>
                             </div>
-                            <span>Generating audio...</span>
+                            <span>Generating high-fidelity vocal speech stream...</span>
                         </div>
-                        <audio id="tts-audio-player-1" controls preload="auto"></audio>
+                        <audio id="tts-audio-player-1" controls preload="auto" class="fm-native-audio"></audio>
                     </div>
 
-                    <!-- Generated Script 1 -->
-                    <div class="teleprompter-booth">
-                        <div class="booth-title">
-                            <ion-icon name="subtitles-outline"></ion-icon>
-                            <h4 id="title-segment1">RJ Teleprompter Script</h4>
+                    <!-- Teleprompter Script 1 -->
+                    <div class="teleprompter-booth fm-teleprompter-chassis">
+                        <div class="booth-title teleprompter-header-bar">
+                            <div class="prompter-left">
+                                <ion-icon name="subtitles-outline"></ion-icon>
+                                <h4 id="title-segment1">RJ Teleprompter Script</h4>
+                            </div>
+                            <div class="prompter-tools">
+                                <div class="prompter-font-resizer">
+                                    <button type="button" class="btn-font-zoom" id="btn-font-dec-1"
+                                        title="Decrease Font Size">A-</button>
+                                    <button type="button" class="btn-font-zoom" id="btn-font-inc-1"
+                                        title="Increase Font Size">A+</button>
+                                </div>
+                                <button type="button" class="btn-prompter-tool" id="btn-copy-script-1"
+                                    title="Copy Script to Clipboard">
+                                    <ion-icon name="copy-outline"></ion-icon> <span>Copy</span>
+                                </button>
+                                <a id="btn-download-audio-1" class="btn-prompter-tool" download="segment1_audio.wav"
+                                    style="display: none; text-decoration: none;" title="Download Audio File">
+                                    <ion-icon name="download-outline"></ion-icon> <span>Audio</span>
+                                </a>
+                                <span class="prompter-badge">LIVE PROMPTER</span>
+                            </div>
                         </div>
-                        <blockquote id="script-content-1">Script will appear here...</blockquote>
+                        <blockquote id="script-content-1" class="fm-script-display">Script will appear here...
+                        </blockquote>
                     </div>
 
-                    <!-- Playlist Suggestions 1 -->
-                    <div class="playlist-booth">
+                    <!-- Playlist Suggestions 1 (2-Column Grid on Wide Screens) -->
+                    <div class="playlist-booth fm-playlist-chassis">
                         <div class="booth-title">
-                            <ion-icon name="disc-outline"></ion-icon>
-                            <h4>Suggested Song Queue</h4>
+                            <ion-icon name="logo-youtube" class="yt-brand-icon"></ion-icon>
+                            <h4>YouTube Music Track Queue</h4>
+                            <span class="badge-ytm-pill">Playable in Studio</span>
                         </div>
-                        <ul id="songs-list-1">
-                            <!-- Dynamically filled -->
+                        <ul id="songs-list-1" class="yt-songs-list fm-track-list">
+                            <!-- Dynamically populated with playable cards -->
                         </ul>
                     </div>
                 </div>
 
-                <!-- Segment 2 Content Panel -->
-                <div id="content-segment2" class="segment-content" style="display: none; flex-direction: column; gap: 2rem;">
-                    <!-- Custom Audio Station 2 -->
-                    <div class="audio-booth">
+                <!-- Segment 2 Content Deck -->
+                <div id="content-segment2" class="segment-content fm-segment-box" style="display: none;">
+                    <!-- Audio Booth 2 -->
+                    <div class="audio-booth fm-audio-console">
                         <div class="audio-metadata">
-                            <div class="pulse-ring"></div>
+                            <div class="pulse-ring">
+                                <ion-icon name="mic"></ion-icon>
+                            </div>
                             <div class="metadata-text">
                                 <h4 id="audio-status-title-2">Now Transmitting</h4>
-                                <span id="audio-subtitle-2">Gemini 3.1 Flash Speech Output - Part 2</span>
+                                <span id="audio-subtitle-2">Gemini 3.1 Flash Speech Synthesis - Part 2</span>
+                            </div>
+                            <div class="visualizer-status-pill">
+                                <span class="viz-dot"></span>
+                                <span>AUDIO SPECTRUM</span>
                             </div>
                         </div>
+
+                        <!-- Real-time Canvas Audio Spectrum Visualizer (Auto-Fit) -->
+                        <div class="canvas-visualizer-wrap">
+                            <canvas id="visualizer-canvas-2" class="audio-spectrum-canvas"></canvas>
+                        </div>
+
                         <!-- Audio Generating Placeholder 2 -->
-                        <div id="audio-loading-placeholder-2" style="display: none; align-items: center; gap: 0.8rem; color: var(--text-sub); font-size: 0.95rem; padding: 0.5rem 0;">
+                        <div id="audio-loading-placeholder-2" class="audio-gen-placeholder" style="display: none;">
                             <div class="sound-wave-loader-mini">
                                 <div class="bar"></div>
                                 <div class="bar"></div>
                                 <div class="bar"></div>
                             </div>
-                            <span>Generating audio...</span>
+                            <span>Generating high-fidelity vocal speech stream...</span>
                         </div>
-                        <audio id="tts-audio-player-2" controls preload="auto"></audio>
+                        <audio id="tts-audio-player-2" controls preload="auto" class="fm-native-audio"></audio>
                     </div>
 
-                    <!-- Generated Script 2 -->
-                    <div class="teleprompter-booth">
-                        <div class="booth-title">
-                            <ion-icon name="subtitles-outline"></ion-icon>
-                            <h4 id="title-segment2">RJ Teleprompter Script</h4>
+                    <!-- Teleprompter Script 2 -->
+                    <div class="teleprompter-booth fm-teleprompter-chassis">
+                        <div class="booth-title teleprompter-header-bar">
+                            <div class="prompter-left">
+                                <ion-icon name="subtitles-outline"></ion-icon>
+                                <h4 id="title-segment2">RJ Teleprompter Script</h4>
+                            </div>
+                            <div class="prompter-tools">
+                                <div class="prompter-font-resizer">
+                                    <button type="button" class="btn-font-zoom" id="btn-font-dec-2"
+                                        title="Decrease Font Size">A-</button>
+                                    <button type="button" class="btn-font-zoom" id="btn-font-inc-2"
+                                        title="Increase Font Size">A+</button>
+                                </div>
+                                <button type="button" class="btn-prompter-tool" id="btn-copy-script-2"
+                                    title="Copy Script to Clipboard">
+                                    <ion-icon name="copy-outline"></ion-icon> <span>Copy</span>
+                                </button>
+                                <a id="btn-download-audio-2" class="btn-prompter-tool" download="segment2_audio.wav"
+                                    style="display: none; text-decoration: none;" title="Download Audio File">
+                                    <ion-icon name="download-outline"></ion-icon> <span>Audio</span>
+                                </a>
+                                <span class="prompter-badge">LIVE PROMPTER</span>
+                            </div>
                         </div>
-                        <blockquote id="script-content-2">Script will appear here...</blockquote>
+                        <blockquote id="script-content-2" class="fm-script-display">Script will appear here...
+                        </blockquote>
                     </div>
 
-                    <!-- Playlist Suggestions 2 -->
-                    <div class="playlist-booth">
+                    <!-- Playlist Suggestions 2 (2-Column Grid on Wide Screens) -->
+                    <div class="playlist-booth fm-playlist-chassis">
                         <div class="booth-title">
-                            <ion-icon name="disc-outline"></ion-icon>
-                            <h4>Suggested Song Queue</h4>
+                            <ion-icon name="logo-youtube" class="yt-brand-icon"></ion-icon>
+                            <h4>YouTube Music Track Queue</h4>
+                            <span class="badge-ytm-pill">Playable in Studio</span>
                         </div>
-                        <ul id="songs-list-2">
-                            <!-- Dynamically filled -->
+                        <ul id="songs-list-2" class="yt-songs-list fm-track-list">
+                            <!-- Dynamically populated with playable cards -->
                         </ul>
                     </div>
                 </div>
+
+                <!-- YouTube Music Live Explorer Deck (Full Width with Multi-Column Results) -->
+                <div class="yt-search-deck fm-explorer-deck">
+                    <div class="booth-title yt-explorer-title-row">
+                        <div class="explorer-brand">
+                            <ion-icon name="search-outline" class="explorer-search-icon"></ion-icon>
+                            <h4>YouTube Music Live Explorer</h4>
+                        </div>
+                        <span class="badge-sub-pill">Event Stage Jukebox & Search</span>
+                    </div>
+                    <div class="yt-search-bar-wrapper">
+                        <div class="input-wrapper yt-search-input-box">
+                            <ion-icon name="musical-notes-outline"></ion-icon>
+                            <input type="text" id="yt-search-input"
+                                placeholder="Search any song, artist, soundtrack or festival remix..." />
+                        </div>
+                        <button type="button" id="yt-search-btn" class="btn primary-btn yt-search-action-btn">
+                            <span>Search Tracks</span>
+                            <ion-icon name="search"></ion-icon>
+                        </button>
+                    </div>
+                    <!-- Quick Category Festival Chips -->
+                    <div class="yt-quick-chips">
+                        <span class="chip-label"><ion-icon name="flame"></ion-icon> Hot Festival Genres:</span>
+                        <button type="button" class="yt-chip" data-query="Bollywood Top 50 Hits">Bollywood
+                            Chartbusters</button>
+                        <button type="button" class="yt-chip" data-query="EDM Festival Mainstage Drops">EDM
+                            Mainstage</button>
+                        <button type="button" class="yt-chip" data-query="90s Retro Golden Hits">90s Retro
+                            Classics</button>
+                        <button type="button" class="yt-chip" data-query="Lofi Hip Hop Chill Beats">Lo-Fi Chill</button>
+                        <button type="button" class="yt-chip" data-query="Synthwave 80s Retro Electro">Synthwave
+                            Electro</button>
+                        <button type="button" class="yt-chip" data-query="Global Pop Chartbusters">Global Pop
+                            Anthems</button>
+                        <button type="button" class="yt-chip" data-query="Midnight Acoustic Lounge">Midnight
+                            Lounge</button>
+                    </div>
+                    <!-- Search Loading State -->
+                    <div id="yt-search-loader" style="display: none;">
+                        <div class="sound-wave-loader-mini">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <span>Searching YouTube Music tracks...</span>
+                    </div>
+                    <!-- Search Results (2-Column Grid) -->
+                    <ul id="yt-search-results" class="yt-songs-list fm-track-list" style="display: none;">
+                        <!-- Dynamically filled with search results -->
+                    </ul>
+                </div>
+
             </div>
         </section>
     </main>
 
-    <footer class="app-footer">
-        <p>Created with <strong>Gemini 3.1 Pro & Flash TTS</strong> • Next-Gen AI Advanced Synthesis</p>
+    <!-- Master Studio Footer -->
+    <footer class="app-footer fm-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <ion-icon name="radio"></ion-icon>
+                <span>AI Radio Jockey Studio • Live Music Event FM Console</span>
+            </div>
+            <p>Powered by <strong>Gemini 3.1 Pro, Gemini 3.5 Flash & Flash TTS</strong> with Seamless YouTube Music
+                Integration</p>
+        </div>
     </footer>
 
-    <script src="/static/app.js?v=1.7"></script>
+    <script src="/static/app.js?v=9.2"></script>
 </body>
 
 </html>

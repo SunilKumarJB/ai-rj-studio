@@ -5,5 +5,8 @@ python-dotenv
 google-genai
 google-cloud-aiplatform
 google-cloud-texttospeech>=2.31.0
+google-cloud-storage>=2.14.0
 python-multipart
+ytmusicapi>=1.12.0
+
 

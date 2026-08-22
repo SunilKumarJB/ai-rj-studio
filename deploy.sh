@@ -14,7 +14,7 @@ if [ "$REGION" = "global" ]; then
   REGION="us-central1"
 fi
 
-SERVICE_NAME="ai-rj-studio"
+SERVICE_NAME="ai-rj-studio-fm-radio"
 
 if [ -z "$PROJECT_ID" ]; then
   echo "Error: GCP_PROJECT is not set in .env or active gcloud config."
@@ -32,6 +32,6 @@ gcloud run deploy "$SERVICE_NAME" \
   --project "$PROJECT_ID" \
   --region "$REGION" \
   --allow-unauthenticated \
-  --set-env-vars="GCP_PROJECT=$PROJECT_ID,GCP_REGION=${GCP_REGION:-global},GCP_TTS_REGION=${GCP_TTS_REGION:-global},GEMINI_SCRIPT_MODEL=${GEMINI_SCRIPT_MODEL:-gemini-3.5-flash},GEMINI_TTS_MODEL=${GEMINI_TTS_MODEL:-gemini-3.1-flash-tts-preview}"
+  --set-env-vars="GCP_PROJECT=$PROJECT_ID,GCP_REGION=${GCP_REGION:-global},GCP_TTS_REGION=${GCP_TTS_REGION:-global},GEMINI_SCRIPT_MODEL=${GEMINI_SCRIPT_MODEL:-gemini-3.7-flash},GEMINI_TTS_MODEL=${GEMINI_TTS_MODEL:-gemini-3.1-flash-tts-preview},GCS_FAVORITE_BUCKET=${GCS_FAVORITE_BUCKET:-${PROJECT_ID}-ai-rj-favorites}"
 
 echo "Deployment successfully triggered!"
