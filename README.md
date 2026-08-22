@@ -220,3 +220,13 @@ docker run -p 8080:8080 --env-file .env ai-rj-studio
 ## License
 
 This project is licensed under the Apache 2.0 License. See the LICENSE file for details.
+
+---
+
+<div align="center">
+
+[**Sunil Kumar**](https://www.linkedin.com/in/sunilkumar88/)
+
+<sub>A Gemini use-case demonstration. Not an official Google product.</sub>
+
+</div>
