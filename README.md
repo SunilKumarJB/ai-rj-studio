@@ -7,7 +7,7 @@ A full-stack, enterprise-grade AI Radio Jockey platform powered by **Google Gemi
 ## Key Features
 
 ### 1. Vintage FM Broadcast Console
-- **Interactive FM Dial & Presets**: Authentic retro radio tuner interface with frequency presets (91.1 FM, 92.7 Big FM, 93.5 Red FM, 98.3 Radio Mirchi, 104.0 Fever FM).
+- **Interactive FM Dial & Presets**: Authentic retro radio tuner interface with frequency presets.
 - **Persona & Mood Engine**: Tailor broadcasts with diverse host personas (Energetic, Quirky, Chill, Sarcastic, Soulful, Romantic, Late Night, Festive).
 - **Regional Language & Script Support**: Full bilingual and native script support across Hindi, Hinglish, Tamil, Telugu, Malayalam, Kannada, Bengali, Punjabi, Marathi, and English with dedicated Unicode typography.
 
